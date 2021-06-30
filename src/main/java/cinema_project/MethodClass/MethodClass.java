@@ -1,5 +1,10 @@
-package cinema_project;
+package cinema_project.MethodClass;
 
+import cinema_project.EntityClass.MovieTypeEntity;
+import cinema_project.EntityClass.MoviesEntity;
+import cinema_project.EntityClass.TicketsEntity;
+import cinema_project.EntityClass.UserEntity;
+import cinema_project.SessionFactory.DataBaseService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -7,6 +12,20 @@ import javax.persistence.Query;
 import java.util.List;
 
 public class MethodClass {
+
+    public static void manualInsertMovie(){
+        new MethodClass().insertMovie("Fast & Furious 9", 120, "10.00", "Action");
+        new MethodClass().insertMovie("Bigfoot Family", 110, "11.00", "Family");
+        new MethodClass().insertMovie("The Hitman's Wife's Bodyguard", 98, "12.00", "Comedy");
+        new MethodClass().insertMovie("Peter Rabbit: The Runaway", 93, "14.00", "Family");
+        new MethodClass().insertMovie("Spiral: From the Book of Saw", 102, "16.00", "Action");
+
+    }
+    public static void manualInsertMovieType(){
+        new MethodClass().insertMovieType("Action");
+        new MethodClass().insertMovieType("Family");
+        new MethodClass().insertMovieType("Comedy");
+    }
 
     public static void insertMovie(String movie_title, Integer movie_duration, String movie_schedule, String movieType) {
 

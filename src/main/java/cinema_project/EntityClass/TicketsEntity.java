@@ -1,4 +1,4 @@
-package cinema_project;
+package cinema_project.EntityClass;
 
 import javax.persistence.*;
 

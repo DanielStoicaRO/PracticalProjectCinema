@@ -1,5 +1,9 @@
-package cinema_project;
+package cinema_project.SessionFactory;
 
+import cinema_project.EntityClass.MovieTypeEntity;
+import cinema_project.EntityClass.MoviesEntity;
+import cinema_project.EntityClass.TicketsEntity;
+import cinema_project.EntityClass.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

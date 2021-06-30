@@ -1,4 +1,8 @@
-package cinema_project;
+package cinema_project.MainMenu;
+
+import cinema_project.EntityClass.MoviesEntity;
+import cinema_project.EntityClass.TicketsEntity;
+import cinema_project.MethodClass.MethodClass;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -17,7 +21,7 @@ public class MainMenu {
     String phoneNumber;
 
     final int NUMBEROFSEATS = 20;
-    final int TICKETPRICE = 20;
+    final int TICKETPRICE = 10;
 
     private void showMainMenu() {
         int option = 0;
