@@ -10,8 +10,8 @@ public class Main {
         new DataBaseService().getSessionFactory();
         MainMenu mainMenu = new MainMenu();
 
-//        MethodClass.manualInsertMovie();
-//        MethodClass.manualInsertMovieType();
+//        MovieManager.manualInsertMovie();
+//        MovieManager.manualInsertMovieType();
 
     }
 }

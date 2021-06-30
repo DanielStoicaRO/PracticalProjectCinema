@@ -2,7 +2,9 @@ package cinema_project.MainMenu;
 
 import cinema_project.EntityClass.MoviesEntity;
 import cinema_project.EntityClass.TicketsEntity;
-import cinema_project.MethodClass.MethodClass;
+import cinema_project.Service.MovieManager;
+import cinema_project.Service.SessionManager;
+import cinema_project.Service.TicketManager;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -15,10 +17,6 @@ public class MainMenu {
 
     private final Scanner scanner = new Scanner(System.in);
     private final Scanner scannerInt = new Scanner(System.in);
-
-    String user_name;
-    String password;
-    String phoneNumber;
 
     final int NUMBEROFSEATS = 20;
     final int TICKETPRICE = 10;
@@ -51,25 +49,27 @@ public class MainMenu {
                 showMainMenu();
         }
     }
+
     private void showMainMenuCase1RegisterNewUser() {
 
-            System.out.println("Register New: Type User_Name");
-            user_name = scanner.next();
-            System.out.println("Register New: Type Password");
-            password = scanner.next();
-            System.out.println("Register New: Type Phone_Number");
-            phoneNumber = scanner.next();
-            MethodClass.registerNewUser(user_name, password, phoneNumber);
-            showMainMenu();
+        System.out.println("Register New: Type User_Name");
+        String user_name = scanner.next();
+        System.out.println("Register New: Type Password");
+        String password = scanner.next();
+        System.out.println("Register New: Type Phone_Number");
+        String phoneNumber = scanner.next();
+        SessionManager.registerNewUser(user_name, password, phoneNumber);
+        showMainMenu();
 
     }
+
     private void showMainMenuCase2LoginExistingUser() {
         System.out.println("Login Existing: Type User_Name: ");
-        user_name = scanner.next();
+        String user_name = scanner.next();
         System.out.println("Login Existing: Type User_Password");
-        password = scanner.next();
+        String password = scanner.next();
         try {
-            MethodClass.login(user_name, password);
+            SessionManager.login(user_name, password);
             System.out.println("Login successfully !");
             showCinemaMenu();
         } catch (Exception e) {
@@ -77,13 +77,14 @@ public class MainMenu {
             showMainMenu();
         }
     }
+
     private void showMainMenuCase3LoginAdmin() {
         System.out.println("Login ADMIN: Type User_Name: ");
-        user_name = scanner.next();
+        String user_name = scanner.next();
         System.out.println("Login ADMIN: Type User_Password");
-        password = scanner.next();
+        String password = scanner.next();
         try {
-            MethodClass.login(user_name, password);
+            SessionManager.login(user_name, password);
             System.out.println("Login successfully !");
             showAdminMenu();
         } catch (Exception e) {
@@ -102,7 +103,7 @@ public class MainMenu {
         while (option != 0) {
             switch (option) {
                 case 1:
-                    MethodClass.showMovie();
+                    MovieManager.showMovie();
                     showCinemaMenu();
                     int index = scanner.nextInt();
                     break;
@@ -115,15 +116,16 @@ public class MainMenu {
         }
         showMainMenu();
     }
+
     private void showCinemaMenuCase2BuyTickets() {
         System.out.println("Buy Tickets for Movie No.: ");
         int selectMovieNumber = scanner.nextInt();
-        MoviesEntity moviesEntity = new MethodClass().findMovie(selectMovieNumber);
+        MoviesEntity moviesEntity = MovieManager.findMovie(selectMovieNumber);
         System.out.println(" Movie Selected: " + moviesEntity.getMovie_title()
                 + " " + moviesEntity.getMovie_schedule());
         try {
             // cate tichete mai sunt disponibile /film
-            List<TicketsEntity> ticketsEntity = new MethodClass().findTicketNumber(selectMovieNumber);
+            List<TicketsEntity> ticketsEntity = TicketManager.findTicketNumber(selectMovieNumber);
 
             //update pe numarul de locuri ramase in sala ???
             if (NUMBEROFSEATS > ticketsEntity.size()) {
@@ -145,7 +147,7 @@ public class MainMenu {
                 }
 
                 for (int i = 0; i < buyTicket; i++) {
-                    MethodClass.insertTickets(selectMovieNumber);
+                    TicketManager.insertTickets(selectMovieNumber);
                 }
             } else {
                 System.out.println("Out of Tickets, chose another option");
@@ -185,6 +187,7 @@ public class MainMenu {
                 showMainMenu();
         }
     }
+
     private void showAdminMenuCase1InsertMovie() {
         System.out.println("Insert Movie - String Movie_Title: ");
         scanner.nextLine();
@@ -199,15 +202,16 @@ public class MainMenu {
         System.out.println("Insert Movie - Integer Movie_Duration: ");
         Integer movie_duration = scannerInt.nextInt();
 
-        MethodClass.insertMovie(movie_title, movie_duration, movie_schedule, movieType);
+        MovieManager.insertMovie(movie_title, movie_duration, movie_schedule, movieType);
         showAdminMenu();
     }
+
     private void showAdminMenuCase2DeleteMovie() {
         System.out.println("LIST OF MOVIE AVAILABLE:  ");
-        MethodClass.showMovie();
+        MovieManager.showMovie();
         System.out.println("Insert Movie Number to Delete : ");
         int movie_number = scannerInt.nextInt();
-        MethodClass.deleteMovieFromList(movie_number);
+        MovieManager.deleteMovieFromList(movie_number);
         System.out.println("Movie successfully delete from schedule list");
 
         showAdminMenu();

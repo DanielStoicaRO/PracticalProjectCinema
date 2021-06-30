@@ -34,6 +34,6 @@ public class MovieTypeEntity {
 
     @Override
     public String toString() {
-        return "movie_type = " + movie_type ;
+        return "movie_type = " + movie_type;
     }
 }
