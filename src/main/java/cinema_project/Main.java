@@ -1,7 +1,7 @@
 package cinema_project;
 
 import cinema_project.MainMenu.MainMenu;
-import cinema_project.SessionFactory.DataBaseService;
+import cinema_project.Service.DataBaseService;
 
 public class Main {
 

@@ -4,7 +4,7 @@ import cinema_project.EntityClass.MovieTypeEntity;
 import cinema_project.EntityClass.MoviesEntity;
 import cinema_project.EntityClass.TicketsEntity;
 import cinema_project.EntityClass.UserEntity;
-import cinema_project.SessionFactory.DataBaseService;
+import cinema_project.Service.DataBaseService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MethodClass {
 
-    public static void manualInsertMovie(){
+    public static void manualInsertMovie() {
         new MethodClass().insertMovie("Fast & Furious 9", 120, "10.00", "Action");
         new MethodClass().insertMovie("Bigfoot Family", 110, "11.00", "Family");
         new MethodClass().insertMovie("The Hitman's Wife's Bodyguard", 98, "12.00", "Comedy");
@@ -21,7 +21,8 @@ public class MethodClass {
         new MethodClass().insertMovie("Spiral: From the Book of Saw", 102, "16.00", "Action");
 
     }
-    public static void manualInsertMovieType(){
+
+    public static void manualInsertMovieType() {
         new MethodClass().insertMovieType("Action");
         new MethodClass().insertMovieType("Family");
         new MethodClass().insertMovieType("Comedy");
@@ -105,38 +106,12 @@ public class MethodClass {
         }
     }
 
-    public static UserEntity loginUser(String user_name, String password) throws Exception {
+    public static UserEntity login(String user_name, String password) throws Exception {
 
-        Session session = DataBaseService.openSession();
-
-        Query query = session.createQuery("FROM UserEntity WHERE user_name = :one AND user_password = :two")
-                .setParameter("one", user_name).setParameter("two", password);
-
-        List<UserEntity> users = query.getResultList();
-
-        System.out.println(users);
-        session.close();
+        List<UserEntity> users = DataBaseService.getUser(user_name, password);
 
         if (users.size() == 0) {
             throw new Exception("Invalid login details!");
-        } else {
-            return users.get(0);
-        }
-    }
-
-    public static UserEntity loginAdminUser(String user_name, String password) throws Exception {
-        Session session = DataBaseService.openSession();
-
-        Query query = session.createQuery("FROM UserEntity WHERE user_name = :one AND user_password = :two")
-                .setParameter("one", user_name).setParameter("two", password);
-
-        List<UserEntity> users = query.getResultList();
-
-        System.out.println(users);
-        session.close();
-
-        if (users.size() == 0) {
-            throw new Exception("Invalid ADMIN login details!");
         } else {
             return users.get(0);
         }

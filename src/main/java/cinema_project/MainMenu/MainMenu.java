@@ -69,7 +69,7 @@ public class MainMenu {
         System.out.println("Login Existing: Type User_Password");
         password = scanner.next();
         try {
-            MethodClass.loginUser(user_name, password);
+            MethodClass.login(user_name, password);
             System.out.println("Login successfully !");
             showCinemaMenu();
         } catch (Exception e) {
@@ -83,7 +83,7 @@ public class MainMenu {
         System.out.println("Login ADMIN: Type User_Password");
         password = scanner.next();
         try {
-            MethodClass.loginAdminUser(user_name, password);
+            MethodClass.login(user_name, password);
             System.out.println("Login successfully !");
             showAdminMenu();
         } catch (Exception e) {

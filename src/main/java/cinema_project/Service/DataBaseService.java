@@ -1,4 +1,4 @@
-package cinema_project.SessionFactory;
+package cinema_project.Service;
 
 import cinema_project.EntityClass.MovieTypeEntity;
 import cinema_project.EntityClass.MoviesEntity;
@@ -11,7 +11,10 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
+import javax.persistence.Query;
+import java.util.List;
 import java.util.Properties;
+
 public class DataBaseService {
 
     public static SessionFactory getSessionFactory() {
@@ -45,5 +48,19 @@ public class DataBaseService {
     public static Session openSession() {
         Session session = getSessionFactory().openSession();
         return session;
+    }
+
+    public static List<UserEntity> getUser(String user_name, String password) {
+        Session session = DataBaseService.openSession();
+
+        Query query = session.createQuery("FROM UserEntity WHERE user_name = :one AND user_password = :two")
+                .setParameter("one", user_name).setParameter("two", password);
+
+        List<UserEntity> users = query.getResultList();
+
+        System.out.println(users);
+        session.close();
+
+        return users;
     }
 }
